@@ -144,7 +144,7 @@
             }
             .order-template tbody tr td:nth-child(3),
             .order-template tbody tr th:nth-child(3) {
-                display: none;
+                
             }
             .order-template tbody tr td,
             .order-template tbody tr th {
