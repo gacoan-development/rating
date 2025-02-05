@@ -190,31 +190,45 @@
                 padding-left: 0 !important;
             }
         }
-        .star {
-            font-size: 30px;
-            cursor: pointer;
-            color: gray;
+        /* Sembunyikan input radio */
+        input[type="radio"] {
+            display: none;
         }
-        .star.checked {
+
+        /* Gaya label bintang */
+        label {
+            font-size: 30px;
+            color: gray;
+            cursor: pointer;
+            transition: color 0.3s ease; /* Transisi halus saat hover */
+        }
+
+        /* Warna bintang yang terisi saat checked */
+        input[type="radio"]:checked ~ label {
             color: gold;
         }
-        #star-rating {
-            display: flex; /* Menggunakan Flexbox */
-            justify-content: flex-start; /* Mengatur bintang agar berada di sebelah kiri */
+
+        /* Hover effect dari kiri ke kanan */
+        .star-rating label {
+            transition: color 0.3s ease;
         }
-        #star-rating .star {
-            margin-right: 10px; /* Atur jarak antar bintang di sini */
-            font-size: 36px; /* Ukuran bintang, bisa disesuaikan */
-            color: #ccc; /* Warna bintang default */
-            cursor: pointer; /* Menunjukkan bahwa bintang dapat diklik */
+
+        /* Efek hover untuk bintang, dari kiri ke kanan */
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: gold;
         }
-        #star-rating .star:hover,
-        #star-rating .star:hover ~ .star {
-            color: gold; /* Warna bintang saat hover */
+        .btn-primary{
+            background-color: #3e5fce;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            transition: 0.4s;
+            cursor: pointer;
         }
-        #star-rating .star.selected,
-        #star-rating .star.selected ~ .star {
-            color: gold; /* Warna bintang saat dipilih */
+        .btn-primary:hover{
+            background-color:rgb(44, 73, 171);
         }
     </style>
 </head>
@@ -244,110 +258,215 @@
                         <table class="order-template" border="0" cellpadding="0" cellspacing="0" align="left" style="width: 100%; margin-bottom: 50px;">
                             <tbody>
                                 <tr align="left">
-                                    <th style="padding-left: 15px;">Pertanyaan</th>
+                                    <th style="padding-left: 15px; text-align: center;">Pertanyaan</th>
                                     <th></th>
-                                    <th>Rating </th>
+                                    <th style="width: 200px; text-align: center;">Rating </th>
                                 </tr>
                                 <tr>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <h5 style="margin-top: 15px;">Bagaimana penilaian Anda terhadap kualitas layanan yang diberikan?</h5>
+                                        <h5 style="margin-top: 15px;">
+                                            Bagaimana penilaian Anda terhadap kualitas layanan yang diberikan?
+                                        </h5>
                                     </td>
                                     <td valign="top" style="padding-left: 15px;"></td>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <div id="star-rating">
-                                            <span class="star" data-value="1">&#9733;</span>
-                                            <span class="star" data-value="2">&#9733;</span>
-                                            <span class="star" data-value="3">&#9733;</span>
-                                            <span class="star" data-value="4">&#9733;</span>
-                                            <span class="star" data-value="5">&#9733;</span>
-                                        </div>
+                                    <div class="star-rating" id="service_quality">
+                                        <!-- Rating 5 -->
+                                        <input type="radio" id="service_quality_5" name="service_quality" value="5">
+                                        <label for="service_quality_5">&#9733;</label>
+
+                                        <!-- Rating 4 -->
+                                        <input type="radio" id="service_quality_4" name="service_quality" value="4">
+                                        <label for="service_quality_4">&#9733;</label>
+
+                                        <!-- Rating 3 -->
+                                        <input type="radio" id="service_quality_3" name="service_quality" value="3">
+                                        <label for="service_quality_3">&#9733;</label>
+
+                                        <!-- Rating 2 -->
+                                        <input type="radio" id="service_quality_2" name="service_quality" value="2">
+                                        <label for="service_quality_2">&#9733;</label>
+
+                                        <!-- Rating 1 -->
+                                        <input type="radio" id="service_quality_1" name="service_quality" value="1">
+                                        <label for="service_quality_1">&#9733;</label>
+                                    </div>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <h5 style="margin-top: 15px;">Sejauh mana staf kami membantu Anda dengan ramah dan profesional?</h5>
+                                        <h5 style="margin-top: 15px;">
+                                            Sejauh mana staf kami membantu Anda dengan ramah dan profesional?
+                                        </h5>
                                     </td>
                                     <td valign="top" style="padding-left: 15px;"></td>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <div id="star-rating">
-                                            <span class="star" data-value="1">&#9733;</span>
-                                            <span class="star" data-value="2">&#9733;</span>
-                                            <span class="star" data-value="3">&#9733;</span>
-                                            <span class="star" data-value="4">&#9733;</span>
-                                            <span class="star" data-value="5">&#9733;</span>
-                                        </div>
+                                    <div class="star-rating" id="staff_friendliness">
+                                        <!-- Rating 5 -->
+                                        <input type="radio" id="staff_friendliness_5" name="staff_friendliness" value="5">
+                                        <label for="staff_friendliness_5">&#9733;</label>
+
+                                        <!-- Rating 4 -->
+                                        <input type="radio" id="staff_friendliness_4" name="staff_friendliness" value="4">
+                                        <label for="staff_friendliness_4">&#9733;</label>
+
+                                        <!-- Rating 3 -->
+                                        <input type="radio" id="staff_friendliness_3" name="staff_friendliness" value="3">
+                                        <label for="staff_friendliness_3">&#9733;</label>
+
+                                        <!-- Rating 2 -->
+                                        <input type="radio" id="staff_friendliness_2" name="staff_friendliness" value="2">
+                                        <label for="staff_friendliness_2">&#9733;</label>
+
+                                        <!-- Rating 1 -->
+                                        <input type="radio" id="staff_friendliness_1" name="staff_friendliness" value="1">
+                                        <label for="staff_friendliness_1">&#9733;</label>
+                                    </div>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <h5 style="margin-top: 15px;">Apakah layanan yang diberikan sesuai dengan harapan Anda?</h5>
+                                        <h5 style="margin-top: 15px;">
+                                            Apakah layanan yang diberikan sesuai dengan harapan Anda?
+                                        </h5>
                                     </td>
                                     <td valign="top" style="padding-left: 15px;"></td>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <div id="star-rating">
-                                            <span class="star" data-value="1">&#9733;</span>
-                                            <span class="star" data-value="2">&#9733;</span>
-                                            <span class="star" data-value="3">&#9733;</span>
-                                            <span class="star" data-value="4">&#9733;</span>
-                                            <span class="star" data-value="5">&#9733;</span>
-                                        </div>
+                                    <div class="star-rating" id="service_expectation">
+                                        <!-- Rating 5 -->
+                                        <input type="radio" id="service_expectation_5" name="service_expectation" value="5">
+                                        <label for="service_expectation_5">&#9733;</label>
+
+                                        <!-- Rating 4 -->
+                                        <input type="radio" id="service_expectation_4" name="service_expectation" value="4">
+                                        <label for="service_expectation_4">&#9733;</label>
+
+                                        <!-- Rating 3 -->
+                                        <input type="radio" id="service_expectation_3" name="service_expectation" value="3">
+                                        <label for="service_expectation_3">&#9733;</label>
+
+                                        <!-- Rating 2 -->
+                                        <input type="radio" id="service_expectation_2" name="service_expectation" value="2">
+                                        <label for="service_expectation_2">&#9733;</label>
+
+                                        <!-- Rating 1 -->
+                                        <input type="radio" id="service_expectation_1" name="service_expectation" value="1">
+                                        <label for="service_expectation_1">&#9733;</label>
+                                    </div>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <h5 style="margin-top: 15px;">Seberapa cepat proses pelayanan yang Anda terima?</h5>
+                                        <h5 style="margin-top: 15px;">
+                                            Seberapa cepat proses pelayanan yang Anda terima?
+                                        </h5>
                                     </td>
                                     <td valign="top" style="padding-left: 15px;"></td>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <div id="star-rating">
-                                            <span class="star" data-value="1">&#9733;</span>
-                                            <span class="star" data-value="2">&#9733;</span>
-                                            <span class="star" data-value="3">&#9733;</span>
-                                            <span class="star" data-value="4">&#9733;</span>
-                                            <span class="star" data-value="5">&#9733;</span>
-                                        </div>
+                                    <div class="star-rating" id="service_speed">
+                                        <!-- Rating 5 -->
+                                        <input type="radio" id="service_speed_5" name="service_speed" value="5">
+                                        <label for="service_speed_5">&#9733;</label>
+
+                                        <!-- Rating 4 -->
+                                        <input type="radio" id="service_speed_4" name="service_speed" value="4">
+                                        <label for="service_speed_4">&#9733;</label>
+
+                                        <!-- Rating 3 -->
+                                        <input type="radio" id="service_speed_3" name="service_speed" value="3">
+                                        <label for="service_speed_3">&#9733;</label>
+
+                                        <!-- Rating 2 -->
+                                        <input type="radio" id="service_speed_2" name="service_speed" value="2">
+                                        <label for="service_speed_2">&#9733;</label>
+
+                                        <!-- Rating 1 -->
+                                        <input type="radio" id="service_speed_1" name="service_speed" value="1">
+                                        <label for="service_speed_1">&#9733;</label>
+                                    </div>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <h5 style="margin-top: 15px;">Apakah prosesnya efisien dan tidak membuang waktu Anda?</h5>
+                                        <h5 style="margin-top: 15px;">
+                                            Apakah prosesnya efisien dan tidak membuang waktu Anda?
+                                        </h5>
                                     </td>
-									<td valign="top" style="padding-left: 15px;"></td>
+                                    <td valign="top" style="padding-left: 15px;"></td>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <div id="star-rating">
-                                            <span class="star" data-value="1">&#9733;</span>
-                                            <span class="star" data-value="2">&#9733;</span>
-                                            <span class="star" data-value="3">&#9733;</span>
-                                            <span class="star" data-value="4">&#9733;</span>
-                                            <span class="star" data-value="5">&#9733;</span>
-                                        </div>
+                                    <div class="star-rating" id="efficiency">
+                                        <!-- Rating 5 -->
+                                        <input type="radio" id="efficiency_5" name="efficiency" value="5">
+                                        <label for="efficiency_5">&#9733;</label>
+
+                                        <!-- Rating 4 -->
+                                        <input type="radio" id="efficiency_4" name="efficiency" value="4">
+                                        <label for="efficiency_4">&#9733;</label>
+
+                                        <!-- Rating 3 -->
+                                        <input type="radio" id="efficiency_3" name="efficiency" value="3">
+                                        <label for="efficiency_3">&#9733;</label>
+
+                                        <!-- Rating 2 -->
+                                        <input type="radio" id="efficiency_2" name="efficiency" value="2">
+                                        <label for="efficiency_2">&#9733;</label>
+
+                                        <!-- Rating 1 -->
+                                        <input type="radio" id="efficiency_1" name="efficiency" value="1">
+                                        <label for="efficiency_1">&#9733;</label>
+                                    </div>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <h5 style="margin-top: 15px;">Secara keseluruhan, seberapa puas Anda dengan pengalaman Anda?</h5>
+                                        <h5 style="margin-top: 15px;">
+                                            Secara keseluruhan, seberapa puas Anda dengan pengalaman Anda?
+
+                                        </h5>
                                     </td>
-									<td valign="top" style="padding-left: 15px;"></td>
+                                    <td valign="top" style="padding-left: 15px;"></td>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <div id="star-rating">
-                                            <span class="star" data-value="1">&#9733;</span>
-                                            <span class="star" data-value="2">&#9733;</span>
-                                            <span class="star" data-value="3">&#9733;</span>
-                                            <span class="star" data-value="4">&#9733;</span>
-                                            <span class="star" data-value="5">&#9733;</span>
-                                        </div>
+                                    <div class="star-rating" id="overall_satisfaction">
+                                        <!-- Rating 5 -->
+                                        <input type="radio" id="overall_satisfaction_5" name="overall_satisfaction" value="5">
+                                        <label for="overall_satisfaction_5">&#9733;</label>
+
+                                        <!-- Rating 4 -->
+                                        <input type="radio" id="overall_satisfaction_4" name="overall_satisfaction" value="4">
+                                        <label for="overall_satisfaction_4">&#9733;</label>
+
+                                        <!-- Rating 3 -->
+                                        <input type="radio" id="overall_satisfaction_3" name="overall_satisfaction" value="3">
+                                        <label for="overall_satisfaction_3">&#9733;</label>
+
+                                        <!-- Rating 2 -->
+                                        <input type="radio" id="overall_satisfaction_2" name="overall_satisfaction" value="2">
+                                        <label for="overall_satisfaction_2">&#9733;</label>
+
+                                        <!-- Rating 1 -->
+                                        <input type="radio" id="overall_satisfaction_1" name="overall_satisfaction" value="1">
+                                        <label for="overall_satisfaction_1">&#9733;</label>
+                                    </div>
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <td valign="top" style="padding-left: 15px;">
-                                        <h5 style="margin-top: 15px;">Berikan masukan anda untuk membangun kami agar lebih baik di kemudian hari</h5>
-                                        <textarea rows="4" cols="50" placeholder="" style="margin-top: 0px; width: 100%; padding: 10px; border: 1px solid #ccc; resize: vertical; margin-bottom: 15px;"></textarea><br>
+                                        <h5 style="margin-top: 15px;">
+                                            Berikan masukan anda untuk membangun kami agar lebih baik di kemudian hari
+                                        </h5>
+                                        <textarea name="feedback" style="width: 100%; min-height: 100px;" required></textarea>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="btn-showcase">
-                         <button class="btn btn-square btn-primary" type="button">Kirim Feedback</button>
+                         <button class="btn btn-square btn-primary" type="submit" name="submit">Kirim Feedback</button>
                         </div>
                     </form>
                     <table class="temp-social main-bg-light text-center" align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:30px;">
@@ -376,30 +495,25 @@
         </tbody>
     </table>
     <script>
-        // Mendapatkan semua elemen bintang
-        const stars = document.querySelectorAll('.star');
+    document.getElementById("kirim").addEventListener("click", function(){
+        // Ambil nilai rating untuk Pertanyaan
+        const serviceQuality = document.querySelector('input[name="service_quality"]:checked')?.value || "Belum dipilih";
+        const staffFriendliness = document.querySelector('input[name="staff_friendliness"]:checked')?.value || "Belum dipilih";
+        const serviceExpectation = document.querySelector('input[name="service_expectation"]:checked')?.value || "Belum dipilih";
+        const serviceSpeed = document.querySelector('input[name="service_speed"]:checked')?.value || "Belum dipilih";
+        const efficiency = document.querySelector('input[name="efficiency"]:checked')?.value || "Belum dipilih";
+        const overallSatisfaction = document.querySelector('input[name="overall_satisfaction"]:checked')?.value || "Belum dipilih";
 
-        // Menambahkan event listener untuk setiap bintang
-        stars.forEach(star => {
-            star.addEventListener('click', setRating);
-        });
-
-        function setRating(e) {
-            // Mengambil nilai dari bintang yang diklik
-            const selectedRating = e.currentTarget.getAttribute('data-value');
-
-            // Menghapus kelas 'checked' dari semua bintang
-            stars.forEach(star => {
-                star.classList.remove('checked');
-            });
-
-            // Menambahkan kelas 'checked' pada bintang yang dipilih dan sebelumnya
-            stars.forEach(star => {
-                if (star.getAttribute('data-value') <= selectedRating) {
-                    star.classList.add('checked');
-                }
-            });
-        }
+        // Menyimpan semua nilai ke dalam array
+        const feedbackArray = [
+            serviceQuality,
+            staffFriendliness,
+            serviceExpectation,
+            serviceSpeed,
+            efficiency,
+            overallSatisfaction
+        ];
+    });
     </script>
 </body>
 </html>

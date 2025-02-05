@@ -1,67 +1,60 @@
 <?php
 
-$servername = "localhost"; // Ganti dengan nama server Anda
+function inserData($data){
+    $host = "localhost";
+    $user = "root";
+    $pw = "";
+    $dbname = "admin_develop";
 
-$username = "admin_develop"; // Ganti dengan username database Anda
+    // Membuat koneksi PDO
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pw);
+        // Set mode error handling ke exception
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$password = "J$y4g91x0"; // Ganti dengan password database Anda
+        // Persiapkan query insert
+        $query = "INSERT INTO ratings (service_quality, staff_friendliness, service_expectation, service_speed, efficiency, overall_satisfaction, feedback) VALUES (:sq, :sf, :se, :ss, :e, :os, :f)";
+        
+        // Persiapkan statement
+        $stmt = $pdo->prepare($query);
 
-$dbname = "admin_develop"; // Ganti dengan nama database Anda
+        // Bind parameter ke statement
+        $stmt->bindParam(':sq', $data['sq']);
+        $stmt->bindParam(':sf', $data['sf']);
+        $stmt->bindParam(':se', $data['se']);
+        $stmt->bindParam(':ss', $data['ss']);
+        $stmt->bindParam(':e', $data['e']);
+        $stmt->bindParam(':os', $data['os']);
+        $stmt->bindParam(':f', $data['f']);
 
+        // Eksekusi query
+        $stmt->execute();
 
-// Membuat koneksi
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-
-// Memeriksa koneksi
-
-if ($conn->connect_error) {
-
-    die("Connection failed: " . $conn->connect_error);
-
+        echo '
+        <script>
+        alert("Terimakasih Atas Ratingnya :)");
+        window.location.href = "rating.php";
+        </script>
+        ';
+    } catch (PDOException $e) {
+        echo "Koneksi gagal: " . $e->getMessage();
+    }
 }
 
 
-// Mengambil data dari form
-
-$service_quality = $_POST['service_quality'];
-
-$staff_friendliness = $_POST['staff_friendliness'];
-
-$service_expectation = $_POST['service_expectation'];
-
-$service_speed = $_POST['service_speed'];
-
-$efficiency = $_POST['efficiency'];
-
-$overall_satisfaction = $_POST['overall_satisfaction'];
-
-$feedback = $_POST['feedback'];
-
-
-// Menyimpan data ke dalam database
-
-$sql = "INSERT INTO ratings (service_quality, staff_friendliness, service_expectation, service_speed, efficiency, overall_satisfaction, feedback) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-$stmt = $conn->prepare($sql);
-
-$stmt->bind_param("iiiiiss", $service_quality, $staff_friendliness, $service_expectation, $service_speed, $efficiency, $overall_satisfaction, $feedback);
-
-
-if ($stmt->execute()) {
-
-    echo "Rating submitted successfully!";
-
-} else {
-
-    echo "Error: " . $stmt->error;
-
+if(isset($_POST['submit'])){
+    $data = [
+        'sq' => $_POST['service_quality'],
+        'sf' => $_POST['staff_friendliness'],
+        'se' => $_POST['service_expectation'],
+        'ss' => $_POST['service_speed'],
+        'e' => $_POST['efficiency'],
+        'os' => $_POST['overall_satisfaction'],
+        'f' => $_POST['feedback']
+    ];
+    inserData($data);
+}else{
+    echo "Gagal Memberi Rating";
 }
-
-
-$stmt->close();
-
-$conn->close();
 
 ?>
